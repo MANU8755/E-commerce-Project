@@ -1,69 +1,34 @@
 package com.Ecommerce.Service;
 
-import java.util.List;
 
+import java.time.LocalDate;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Ecommerce.DAO.OrderRepository;
 import com.Ecommerce.Entity.Orders;
-import com.Ecommerce.Entity.ProductName;
+import com.Ecommerce.Entity.User;
+
 
 @Service
 public class OrderServiceImplementation implements OrderServiceInterface{
-//
-//	@Override
-//	public String placeOrder(ProductName product, int quantity) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
+	
+	@Autowired
+	OrderRepository orderRepository;
+
 	@Override
-	public Orders getOrderById(Long orderId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void generateOrderId(User user) {
+		
+		Orders orders = new Orders();
+		
+		orders.setCustomer(user);
+		orders.setCreatedAt(LocalDate.now());
+		
+		orderRepository.save(orders);
+		
 	}
-//
-//	@Override
-//	public List<Orders> getAllOrders() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String cancelOrder(Long orderId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String generateOrderInvoice(Long orderId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String addProductToOrder(Long orderId, ProductName product, int quantity) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String removeProductFromOrder(Long orderId, Long productId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String updateOrderProductQuantity(Long orderId, Long productId, int newQuantity) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public double calculateOrderTotal(Long orderId) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//
-//
+
+	
+	
 }

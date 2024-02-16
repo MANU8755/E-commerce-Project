@@ -7,10 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.Date;
-import java.util.List;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "ShoppingCart")
@@ -27,10 +26,10 @@ public class Cart {
 
     // New columns for auditing
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at") 
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
 	public Cart() {
 		super();
@@ -39,7 +38,7 @@ public class Cart {
 	
 	
 
-	public Cart(Long cartId, User customer, Date createdAt, Date updatedAt) {
+	public Cart(Long cartId, User customer, LocalDate createdAt, LocalDate updatedAt) {
 		super();
 		this.cartId = cartId;
 		this.customer = customer;
@@ -73,31 +72,29 @@ public class Cart {
 
 
 
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
 
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
 
 
-	public Date getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
 
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 	
 	 
 
 	    
-
-    // Constructors, getters, and setters
 }

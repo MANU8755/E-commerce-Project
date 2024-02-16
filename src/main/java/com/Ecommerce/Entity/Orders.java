@@ -5,11 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "ProductOrder")
@@ -24,32 +24,29 @@ public class Orders {
     private User customer;
 
 
-    private Date orderDate;
-
-    private double orderTotalPrice;
-
     
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
 	public Orders() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Orders(Long orderId, User customer, Date orderDate, double orderTotalPrice, Date createdAt, Date updatedAt) {
+	
+
+	public Orders(Long orderId, User customer, LocalDate createdAt, LocalDate updatedAt) {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
-		this.orderDate = orderDate;
-		this.orderTotalPrice = orderTotalPrice;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
+
+
 
 	public Long getOrderId() {
 		return orderId;
@@ -67,35 +64,20 @@ public class Orders {
 		this.customer = customer;
 	}
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public double getOrderTotalPrice() {
-		return orderTotalPrice;
-	}
-
-	public void setOrderTotalPrice(double orderTotalPrice) {
-		this.orderTotalPrice = orderTotalPrice;
-	}
-
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 	

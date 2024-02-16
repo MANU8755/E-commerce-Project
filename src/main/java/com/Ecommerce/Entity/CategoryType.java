@@ -1,5 +1,8 @@
 package com.Ecommerce.Entity;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,12 +18,30 @@ public class CategoryType {
 	private String categoryName;
 	
 	private String categoryImage;
+	
+	@Column(name = "created_at")
+    private LocalDate createdAt;
+     
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+ 
 
-	public CategoryType(long categoryId, String categoryName) {
+	public CategoryType() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public CategoryType(long categoryId, String categoryName, String categoryImage, LocalDate createdAt,
+			LocalDate updatedAt) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
+		this.categoryImage = categoryImage;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
+
+
 
 	public long getCategoryId() {
 		return categoryId;
@@ -44,6 +65,22 @@ public class CategoryType {
 
 	public void setCategoryImage(String categoryImage) {
 		this.categoryImage = categoryImage;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 	

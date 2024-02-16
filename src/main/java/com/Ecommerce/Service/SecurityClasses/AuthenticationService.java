@@ -1,6 +1,7 @@
 package com.Ecommerce.Service.SecurityClasses;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -12,8 +13,10 @@ import com.Ecommerce.DAO.TokenRepository;
 import com.Ecommerce.DAO.UserRespository;
 import com.Ecommerce.Entity.Token;
 import com.Ecommerce.Entity.User;
+import com.Ecommerce.Service.CartServiceImplementation;
+import com.Ecommerce.Service.OrderServiceImplementation;
 
-
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -28,6 +31,11 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
+    @Autowired
+    CartServiceImplementation cartServiceImplementation;
+    
+    @Autowired
+    OrderServiceImplementation orderServiceImplementation;
 
     
 
@@ -56,7 +64,10 @@ public class AuthenticationService {
         user.setCustomerPhoneNumber(request.getCustomerPhoneNumber());
         user.setSeller(request.isSeller());
         user.setRole(request.getRole());
+        user.setCreatedAt(LocalDate.now());
         user = repository.save(user);
+        cartServiceImplementation.addCartDetails(user);
+        orderServiceImplementation.generateOrderId(user);
 
         String jwt = jwtService.generateToken(user);
 

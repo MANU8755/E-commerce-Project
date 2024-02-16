@@ -1,5 +1,5 @@
 package com.Ecommerce.Entity;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 
@@ -31,23 +31,28 @@ public class ProductName {
 	
 	private Double productCost;
 	
-	private int Productquantity;
-	
 	private String description;
+	
+	private String productQuantity;
+	
+	
 	
     @ManyToOne
     @JoinColumn(name = "categoryId",referencedColumnName = "categoryId")
     private CategoryType categoryType;
     	
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
      
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDate updatedAt;
+    
+    @ManyToOne
+    @JoinColumn(name = "productSellerName",referencedColumnName = "sellerId")
+    private Seller seller;
 
 	public ProductName() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getProductId() {
@@ -106,14 +111,6 @@ public class ProductName {
 		this.productCost = productCost;
 	}
 
-	public int getProductquantity() {
-		return Productquantity;
-	}
-
-	public void setProductquantity(int productquantity) {
-		Productquantity = productquantity;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -130,21 +127,41 @@ public class ProductName {
 		this.categoryType = categoryType;
 	}
 
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
+
+	public String getProductQuantity() {
+		return productQuantity;
+	}
+
+	public void setProductQuantity(String productQuantity) {
+		this.productQuantity = productQuantity;
+	}
 		
+	
+	
+	
+	
 
 }

@@ -32,6 +32,8 @@ public class UserController {
         return ResponseEntity.ok("Hello from admin only url");
     }
 
+    
+    
 	
 
 }

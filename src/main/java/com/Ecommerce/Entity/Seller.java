@@ -9,8 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -28,33 +27,32 @@ public class Seller {
     private long sellerPhoneNumber;
     
 	@OneToOne
-	@JoinColumn(name  = "user_id")
+	@JoinColumn(name  = "user_id",referencedColumnName = "customerId")
 	private User user;
-    
-	@OneToMany
-	@JoinColumn(name  = "SellerProduct_id")
-    private List<ProductName> products;
+//    
+//	@OneToMany
+//	@JoinColumn(name  = "SellerProduct_id")
+//    private List<ProductName> products;
     
     
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
 	public Seller() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Seller(Long sellerId, String sellerName, String gstNo, long sellerPhoneNumber, List<ProductName> products,
-			Date createdAt, Date updatedAt) {
+	public Seller(Long sellerId, String sellerName, String gstNo, long sellerPhoneNumber, 
+			LocalDate createdAt, LocalDate updatedAt) {
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
 		GstNo = gstNo;
 		this.sellerPhoneNumber = sellerPhoneNumber;
-		this.products = products;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
@@ -92,22 +90,31 @@ public class Seller {
 	}
 
 
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-    
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
     
    
 }

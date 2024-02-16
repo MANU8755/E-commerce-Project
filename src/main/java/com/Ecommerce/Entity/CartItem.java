@@ -1,8 +1,8 @@
 package com.Ecommerce.Entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,23 +27,22 @@ public class CartItem {
 	@JoinColumn(name = "cartId",referencedColumnName = "cartId")
 	private Cart cart;
 	    
-	@ManyToOne
-	@JoinColumn(name = "customerId",referencedColumnName = "customerId")
-	private User user;
+//	@ManyToOne
+//	@JoinColumn(name = "customerId",referencedColumnName = "customerId")
+//	private User user;
 
-    private int Productquantity;
+    private int productQuantity;
     
-    private double ProdcuctUnitPrice;
+    private double productUnitPrice;
     
     
     private double TotalPurchasePrice;
 
-	    
-	
-    private Date createdAt;
+	    	
+    private LocalDate createdAt;
 
     
-    private Date updatedAt;
+    private LocalDate updatedAt;
     
     
 	public CartItem() {
@@ -51,19 +50,20 @@ public class CartItem {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public CartItem(Long cartItemId, ProductName product, Cart cart, int productquantity, double prodcuctUnitPrice,
-			double totalPurchasePrice, Date createdAt, Date updatedAt) {
+	
+	public CartItem(Long cartItemId, ProductName product, Cart cart, int productQuantity, double productUnitPrice,
+			double totalPurchasePrice, LocalDate createdAt, LocalDate updatedAt) {
 		super();
 		this.cartItemId = cartItemId;
 		this.product = product;
 		this.cart = cart;
-		Productquantity = productquantity;
-		ProdcuctUnitPrice = prodcuctUnitPrice;
+		this.productQuantity = productQuantity;
+		this.productUnitPrice = productUnitPrice;
 		TotalPurchasePrice = totalPurchasePrice;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
+
 
 
 	public Long getCartItemId() {
@@ -89,23 +89,24 @@ public class CartItem {
 	}
 
 
-	public int getProductquantity() {
-		return Productquantity;
+	public int getProductQuantity() {
+		return productQuantity;
 	}
 
 
-	public void setProductquantity(int productquantity) {
-		Productquantity = productquantity;
+	public void setProductQuantity(int productQuantity) {
+		this.productQuantity = productQuantity;
 	}
 
 
-	public double getProdcuctUnitPrice() {
-		return ProdcuctUnitPrice;
+
+	public double getProductUnitPrice() {
+		return productUnitPrice;
 	}
 
 
-	public void setProdcuctUnitPrice(double prodcuctUnitPrice) {
-		ProdcuctUnitPrice = prodcuctUnitPrice;
+	public void setProductUnitPrice(double productUnitPrice) {
+		this.productUnitPrice = productUnitPrice;
 	}
 
 
@@ -119,22 +120,22 @@ public class CartItem {
 	}
 
 
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
 
-	public Date getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
@@ -147,6 +148,8 @@ public class CartItem {
 	public void setProduct(ProductName product) {
 		this.product = product;
 	}
+
+
      
 	
     

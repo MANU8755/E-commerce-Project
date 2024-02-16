@@ -1,6 +1,7 @@
 package com.Ecommerce.Entity;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "Customer")
@@ -37,10 +39,10 @@ public class User implements UserDetails{
 	
 	
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDate updatedAt;
     
     @Enumerated(value= EnumType.STRING)
     private Role role;
@@ -53,7 +55,7 @@ public class User implements UserDetails{
 
 
 	public User(Long customerId, String customerName, String customerEmailId, String password, long customerPhoneNumber,
-			boolean seller, Date createdAt, Date updatedAt) {
+			boolean seller, LocalDate createdAt, LocalDate updatedAt) {
 		super();
 		this.customerId = customerId;
 		CustomerName = customerName;
@@ -126,22 +128,22 @@ public class User implements UserDetails{
 	}
 
 
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 
 
-	public Date getUpdatedAt() {
+	public LocalDate getUpdatedAt() {
 		return updatedAt;
 	}
 
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 

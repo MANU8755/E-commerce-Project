@@ -1,5 +1,8 @@
 package com.Ecommerce.Entity;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,12 +29,20 @@ public class OrderItem {
     @JoinColumn(name = "OrderProductId")
     private ProductName product;
 
-    private int Productquantity;
+    private int productquantity;
     
-    private double ProdcuctUnitPrice;
+    private double productUnitPrice;
     
     
-    private double TotalPurchasePrice;
+    private double totalPurchasePrice;
+    
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    
+    @Column(name = "updated_at")
+    private LocalDate updatedAt;
+
     
     
 
@@ -42,28 +53,48 @@ public class OrderItem {
 	}
 
 
-
-	public OrderItem(Long orderItemId, Orders order, ProductName product, int productquantity, double prodcuctUnitPrice,
-			double totalPurchasePrice) {
-		super();
-		this.orderItemId = orderItemId;
-		this.order = order;
-		this.product = product;
-		Productquantity = productquantity;
-		ProdcuctUnitPrice = prodcuctUnitPrice;
-		TotalPurchasePrice = totalPurchasePrice;
-	}
 	
 	
-	public ProductName getProduct() {
-		return product;
+
+
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
 	}
 
 
 
-	public void setProduct(ProductName product) {
-		this.product = product;
+
+
+
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
 	}
+
+
+
+
+
+
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+
+
+
+
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+
+
+
 
 
 
@@ -95,47 +126,64 @@ public class OrderItem {
 
 
 
+	public ProductName getProduct() {
+		return product;
+	}
+
+
+
+
+	public void setProduct(ProductName product) {
+		this.product = product;
+	}
+
+
+
 
 	public int getProductquantity() {
-		return Productquantity;
+		return productquantity;
 	}
 
 
 
 
-	public void setProductquantity(int productquantity) {
-		Productquantity = productquantity;
+	public int setProductquantity(int productquantity) {
+		return this.productquantity = productquantity;
 	}
 
 
 
 
-	public double getProdcuctUnitPrice() {
-		return ProdcuctUnitPrice;
+	public double getProductUnitPrice() {
+		return productUnitPrice;
 	}
 
 
 
 
-	public void setProdcuctUnitPrice(double prodcuctUnitPrice) {
-		ProdcuctUnitPrice = prodcuctUnitPrice;
+	public Double setProductUnitPrice(double productUnitPrice) {
+		return this.productUnitPrice = productUnitPrice;
 	}
 
 
 
 
 	public double getTotalPurchasePrice() {
-		return TotalPurchasePrice;
+		return totalPurchasePrice;
 	}
 
 
 
 
-	public void setTotalPurchasePrice(double totalPurchasePrice) {
-		TotalPurchasePrice = totalPurchasePrice;
+	public double setTotalPurchasePrice(double totalPurchasePrice) {
+		return this.totalPurchasePrice = totalPurchasePrice;
 	}
-    
+
 	
+
+   
+	
+		
     
 
     // Constructors, getters, and setters
