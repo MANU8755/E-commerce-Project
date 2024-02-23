@@ -1,5 +1,7 @@
 package com.Ecommerce.Service;
 
+import java.util.List;
+
 import com.Ecommerce.Entity.CategoryType;
 
 public interface CategoryServiceInterface {
@@ -8,6 +10,7 @@ public interface CategoryServiceInterface {
 	public String addCategoryItems(CategoryType categoryType);
 	
 	       
+	public List<CategoryType> getAllCategoryTypes();
 	
 
 }

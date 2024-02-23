@@ -2,6 +2,7 @@ package com.Ecommerce.Service;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,18 +35,23 @@ public class CategoryServiceImplementation implements CategoryServiceInterface{
 		return "Category added successfully";
 	}
 
+
+
+
+	@Override
+	public List<CategoryType> getAllCategoryTypes() {
+		
+		return categoryRepository.findAll();
+	}
+
+
+
+
 //	@Override
-//	public String addCategoryItems(CategoryType categoryType) {
+//	public List<ProductName> categoryWiseProductsList() {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-//
-//	@Override
-//	public String getAllCategory() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	
-	
+
 
 }

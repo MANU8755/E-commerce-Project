@@ -36,7 +36,15 @@ public class CartItemImplementation implements CartItemInterface{
 	public String addProductsToCart(Long ProductId,Long cartId,CartItem cartItem) {
 //		
 //		User userDetails = userRespository.findByCustomerId(userId);
+		System.out.println("productId is $" + ProductId);
+
 		
+		if(!productRepository.existsById(ProductId)) {
+			return "Please enter a valid productID";
+		}
+		if(!productRepository.existsById(cartId)) {
+			return "Please enter a valid cartID";
+		}
 		ProductName product = productRepository.findByProductId(ProductId);
 		
 		Cart cartDetails = cartRepository.findByCartId(cartId);
@@ -48,6 +56,7 @@ public class CartItemImplementation implements CartItemInterface{
 		cartItemdetails.setProductQuantity(cartItem.getProductQuantity());
 		cartItemdetails.setCart(cartDetails);
 		cartItemdetails.setProductUnitPrice(cartItem.getProductUnitPrice());
+		//System.out.println(product.getProductCost());
 		cartItemdetails.setTotalPurchasePrice((cartItem.getProductQuantity()) * (cartItem.getProductUnitPrice()));
 		cartItemdetails.setCreatedAt(LocalDate.now());
 		
@@ -61,6 +70,26 @@ public class CartItemImplementation implements CartItemInterface{
 	public List<CartItem> getAllCartItems() {
 		// TODO Auto-generated method stub
 		return cartItemRespository.findAll();
+	}
+
+
+
+
+	@Override
+	public String deleteItemsFromCart(Long productId,Long cartId) {
+		
+	    System.out.println("Received cartId: " + cartId); 
+	    
+		if(cartRepository.existsById(cartId)) {
+			cartItemRespository.deleteByProductId(productId);
+
+			return "product removed from the cart";
+			
+		}
+		else {
+			return "cart id is not even existed";
+		}
+		
 	}
 	
 	

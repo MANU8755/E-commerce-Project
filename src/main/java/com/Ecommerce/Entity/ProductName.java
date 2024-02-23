@@ -1,6 +1,8 @@
 package com.Ecommerce.Entity;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
@@ -36,17 +38,20 @@ public class ProductName {
 	private String productQuantity;
 	
 	
-	
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoryId",referencedColumnName = "categoryId")
     private CategoryType categoryType;
     	
+    @JsonIgnore
     @Column(name = "created_at")
     private LocalDate createdAt;
      
+    @JsonIgnore
     @Column(name = "updated_at")
     private LocalDate updatedAt;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "productSellerName",referencedColumnName = "sellerId")
     private Seller seller;

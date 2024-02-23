@@ -1,6 +1,7 @@
 package com.Ecommerce.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class OrderItemImplementation implements OrderItemInterface{
 			orderItemDetails.setOrder(orders);
 			orderItemDetails.setCreatedAt(LocalDate.now());
 			orderItemDetails.setProduct(product);
+			//orderItemDetails.setProductUnitPrice(product.getProductCost());
 			Double orderUnitPrice = orderItemDetails.setProductUnitPrice(orderItem.getProductUnitPrice());
 			orderItemDetails.setProductquantity(orderItem.getProductquantity());
 			double totalPrice = orderItemDetails.setTotalPurchasePrice(orderUnitPrice * orderItem.getProductquantity());
@@ -53,6 +55,16 @@ public class OrderItemImplementation implements OrderItemInterface{
 			
 			
 	}
+
+
+
+	@Override
+	public List<OrderItem> getAllOrderItems() {
+
+		return orderItemRespository.findAll();
+	}
+	
+	
 	
 	
 

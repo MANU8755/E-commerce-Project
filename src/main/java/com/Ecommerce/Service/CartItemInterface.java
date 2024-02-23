@@ -12,5 +12,6 @@ public interface CartItemInterface {
       
       public List<CartItem> getAllCartItems();
 	
+      public String deleteItemsFromCart(Long productId,Long cartId);
 	
 }

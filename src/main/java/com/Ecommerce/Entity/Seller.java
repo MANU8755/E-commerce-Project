@@ -6,11 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import java.util.List;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Seller")
@@ -26,18 +27,17 @@ public class Seller {
     
     private long sellerPhoneNumber;
     
+    @JsonIgnore
 	@OneToOne
 	@JoinColumn(name  = "user_id",referencedColumnName = "customerId")
 	private User user;
-//    
-//	@OneToMany
-//	@JoinColumn(name  = "SellerProduct_id")
-//    private List<ProductName> products;
-    
-    
+
+	
+    @JsonIgnore
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @JsonIgnore
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 

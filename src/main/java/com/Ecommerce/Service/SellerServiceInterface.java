@@ -12,5 +12,7 @@ public interface SellerServiceInterface {
 	public List<Seller> getAllseller();
 	
 	
+	
+	
 
 }

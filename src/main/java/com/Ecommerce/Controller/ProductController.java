@@ -27,12 +27,15 @@ public class ProductController {
 		
 	}
  	
-	
 	@GetMapping("/product")
 	public ResponseEntity<List<ProductName>> getAllProducts(){
 		
 		return new ResponseEntity<List<ProductName>>(productServiceImplementation.getAllProducts(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/getProductByCategory/{categoryId}")
+	public ResponseEntity<List<ProductName>> categoryWiseProducts(@PathVariable Long categoryId){
+		return new ResponseEntity<List<ProductName>>(productServiceImplementation.categoryWiseProductsList(categoryId), HttpStatus.OK);
+	}
 
 }

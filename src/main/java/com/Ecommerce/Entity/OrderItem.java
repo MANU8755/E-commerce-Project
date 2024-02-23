@@ -2,6 +2,7 @@ package com.Ecommerce.Entity;
 
 import java.time.LocalDate;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,11 +20,11 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
 
-    @OneToOne
-    @JoinColumn(name = "orderId",referencedColumnName = "orderId")
+    
+    @ManyToOne
+    @JoinColumn(name = "orderId")
     private Orders order;
     
-     
     @ManyToOne
     @JoinColumn(name = "OrderProductId")
     private ProductName product;

@@ -2,13 +2,14 @@ package com.Ecommerce.Entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -18,13 +19,14 @@ public class CartItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cartItemId;
 	
-	
+	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "CartProduct_id")
     private ProductName product;
 
-	@OneToOne
-	@JoinColumn(name = "cartId",referencedColumnName = "cartId")
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "cartId")
 	private Cart cart;
 	    
 //	@ManyToOne
@@ -68,7 +70,7 @@ public class CartItem {
 
 	public Long getCartItemId() {
 		return cartItemId;
-	}
+	}	
 
 
 	public void setCartItemId(Long cartItemId) {

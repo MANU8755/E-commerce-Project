@@ -66,5 +66,18 @@ public class ProductServiceImplementation implements  ProductServiceInterface{
 		return productRepository.findAll();
 	}
 
+	@Override
+	public List<ProductName> categoryWiseProductsList(Long categoryId) {
+		
+		if(categoryRepository.existsById(categoryId)) {
+			
+			List<ProductName> categoryWiseProducts = productRepository.findByCategoryId(categoryId);
+			
+			return categoryWiseProducts;
+		}
+
+		return null;
+	}
+
 	
 }
