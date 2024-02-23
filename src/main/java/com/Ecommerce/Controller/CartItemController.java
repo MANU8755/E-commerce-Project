@@ -27,7 +27,7 @@ public class CartItemController {
 		
 	}
 	
-	@GetMapping("/cart")
+	@GetMapping("/allCartItems")
 	public ResponseEntity<List<CartItem>> getAllCartItems(){
 		return new ResponseEntity<List<CartItem>>(cartItemImplementation.getAllCartItems(), HttpStatus.OK);
 	}
@@ -37,6 +37,11 @@ public class CartItemController {
 		return new ResponseEntity<String>(cartItemImplementation.deleteItemsFromCart(productId,cartId),HttpStatus.OK);
 	}
 	
+	@GetMapping("/cart/{customerId}")
+	public ResponseEntity<List<CartItem>> getAllCartItemsBasedOnCustomerId(@PathVariable Long customerId){
+		
+		return new ResponseEntity<List<CartItem>>(cartItemImplementation.getAllCartItemBasedOnCustomerId(customerId), HttpStatus.OK);
+	}
 	
 }
  

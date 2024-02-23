@@ -7,7 +7,6 @@ import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.Ecommerce.DAO.TokenRepository;
 import com.Ecommerce.Entity.User;
 
 import io.jsonwebtoken.Claims;
@@ -24,12 +23,6 @@ public class JwtService {
 	
 	private final String SECRET_KEY = "4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d7490630407c";
     
-	private final TokenRepository tokenRepository;
-
-
-    public JwtService(TokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -38,23 +31,23 @@ public class JwtService {
 
     public boolean isValid(String token, UserDetails user) {
         String username = extractUsername(token);
+//
+//        boolean validToken = tokenRepository
+//                .findByToken(token)
+//                .map(t -> !t.isLoggedOut())
+//                .orElse(false);
 
-        boolean validToken = tokenRepository
-                .findByToken(token)
-                .map(t -> !t.isLoggedOut())
-                .orElse(false);
-
-        return (username.equals(user.getUsername())) && !isTokenExpired(token) && validToken;
+        return (username.equals(user.getUsername()));
     }
     
     
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date(0));
-    }
+//    private boolean isTokenExpired(String token) {
+//        return extractExpiration(token).before(new Date(0));
+//    }
 
-    private Date extractExpiration(String token) {
-        return (Date) extractClaim(token, Claims::getExpiration);
-    }
+//    private Date extractExpiration(String token) {
+//        return (Date) extractClaim(token, Claims::getExpiration);
+//    }
 
     public <T> T extractClaim(String token, Function<Claims, T> resolver) {
         Claims claims = extractAllClaims(token);

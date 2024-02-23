@@ -12,6 +12,14 @@ public interface AppConstant {
 	
 	public static final String orderProductInfo = "Login successful. Welcome back!";
 	
+	public static final String CartItemIsEmpty = "Your Cart is Empty Please add the products";
+	
+
+	public static final String CartIdNotFound = "Your Cart is not Found Something went Wrong";
+
+	public static final String OrderIdNotFound = "Your OrderId is not Found something went wrong";
+
+	public static final String OrderItemIsEmpty = "You haven't ordered anything yet";
 	
 	
 

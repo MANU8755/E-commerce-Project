@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,12 +45,14 @@ public class User implements UserDetails{
     @Column(name = "updated_at")
     private LocalDate updatedAt;
     
+    //@Value("${some.key:USER}")
     @Enumerated(value= EnumType.STRING)
     private Role role;
     
 
 	public User() {
 		super();
+		this.role = role.USER;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -157,7 +160,7 @@ public class User implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return getCustomerEmailId();
 	}
 
 

@@ -27,13 +27,17 @@ public class OrderItemController {
 		return new ResponseEntity<String>(orderItemImplementation.OrderProducts(productId, orderId, orderItem), HttpStatus.OK);
 	}
  	
-	@GetMapping("/order") 
+	@GetMapping("/AllOrderDetails") 
 	public ResponseEntity<List<OrderItem>> getAllOrderItems(){
 		
 		return new ResponseEntity<List<OrderItem>>(orderItemImplementation.getAllOrderItems(),HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/order/{customerId}")
+	public ResponseEntity<List<OrderItem>> getAllOrderItemBasedOnCustomerId(@PathVariable Long customerId){
+		
+		return new ResponseEntity<List<OrderItem>>(orderItemImplementation.getAllOrderItemBasedOnCustomerId(customerId), HttpStatus.OK);
+	}
 	
 
 }

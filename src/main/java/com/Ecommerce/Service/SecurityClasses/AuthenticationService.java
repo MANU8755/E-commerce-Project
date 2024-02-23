@@ -9,9 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.Ecommerce.DAO.TokenRepository;
 import com.Ecommerce.DAO.UserRespository;
-import com.Ecommerce.Entity.Token;
 import com.Ecommerce.Entity.User;
 import com.Ecommerce.Service.CartServiceImplementation;
 import com.Ecommerce.Service.OrderServiceImplementation;
@@ -27,7 +25,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    private final TokenRepository tokenRepository;
 
     private final AuthenticationManager authenticationManager;
 
@@ -40,12 +37,11 @@ public class AuthenticationService {
     
 
     public AuthenticationService(UserRespository repository, PasswordEncoder passwordEncoder, JwtService jwtService,
-			TokenRepository tokenRepository, AuthenticationManager authenticationManager) {
+			 AuthenticationManager authenticationManager) {
 		super();
 		this.repository = repository;
 		this.passwordEncoder = passwordEncoder;
 		this.jwtService = jwtService;
-		this.tokenRepository = tokenRepository;
 		this.authenticationManager = authenticationManager;
 	}
 
@@ -70,8 +66,8 @@ public class AuthenticationService {
         orderServiceImplementation.generateOrderId(user);
 
         String jwt = jwtService.generateToken(user);
-
-        saveUserToken(jwt, user);
+//
+//        saveUserToken(jwt, user);
 
         return  "User registration was successful";
 
@@ -88,16 +84,16 @@ public class AuthenticationService {
         UserDetails user = repository.findBycustomerEmailId(request.getCustomerEmailId());
         String jwt = jwtService.generateToken(user);
 
-        List<Token> validTokens = tokenRepository.findAllTokensByUser(((User) user).getCustomerId());
-        if(validTokens.isEmpty()) {
-            return "Please enter a valid token";
-        }
+//        List<Token> validTokens = tokenRepository.findAllTokensByUser(((User) user).getCustomerId());
+//        if(validTokens.isEmpty()) {
+//            return "Please enter a valid token";
+//        }
 
-        validTokens.forEach(t-> {
-            t.setLoggedOut(true);
-        });
-
-        tokenRepository.saveAll(validTokens);
+//        validTokens.forEach(t-> {
+//            t.setLoggedOut(true);
+//        });
+//
+//        tokenRepository.saveAll(validTokens);
 
 
         return "User login was successful";
@@ -131,17 +127,17 @@ public class AuthenticationService {
             String jwt = jwtService.generateToken(user);
 
             // Retrieve valid tokens for the user
-            List<Token> validTokens = tokenRepository.findAllTokensByUser(((User) user).getCustomerId());
-            if (validTokens.isEmpty()) {
-                return "Please enter a valid token";
-            }
-
-            // Invalidate existing tokens
-            validTokens.forEach(t -> {
-                t.setLoggedOut(true);
-            });
-
-            tokenRepository.saveAll(validTokens);
+//            List<Token> validTokens = tokenRepository.findAllTokensByUser(((User) user).getCustomerId());
+//            if (validTokens.isEmpty()) {
+//                return "Please enter a valid token";
+//            }
+//
+//            // Invalidate existing tokens
+//            validTokens.forEach(t -> {
+//                t.setLoggedOut(true);
+//            });
+//
+//            tokenRepository.saveAll(validTokens);
 
             return jwt;
         } catch (AuthenticationException e) {
@@ -153,12 +149,12 @@ public class AuthenticationService {
         }
     }
 
-    
-    private void saveUserToken(String jwt, User user) {
-        Token token = new Token();
-        token.setToken(jwt);
-        token.setLoggedOut(false);
-        token.setUser(user);
-        tokenRepository.save(token);
-    }
+//    
+//    private void saveUserToken(String jwt, User user) {
+//        Token token = new Token();
+//        token.setToken(jwt);
+//        token.setLoggedOut(false);
+//        token.setUser(user);
+//        tokenRepository.save(token);
+//    }
 }

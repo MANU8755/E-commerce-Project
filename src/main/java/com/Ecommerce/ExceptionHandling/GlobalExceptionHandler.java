@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidProductException.class)
 	public ResponseEntity<ErrorInfo> invalidpriceexp(InvalidProductException exeption){
     	ErrorInfo errorInfo = new ErrorInfo();
-    	errorInfo.setErrorMessage(exeption.getmsg());
+    	errorInfo.setErrorMessage(exeption.getMessage());
     	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
     	errorInfo.setLocalDateTime(LocalDateTime.now());
     	
@@ -26,9 +26,9 @@ public class GlobalExceptionHandler {
 	}
     
     @ExceptionHandler(InvalidUserException.class)
-	public ResponseEntity<ErrorInfo> idnotFoundExp(InvalidUserException idNotFoundExceotion){
+	public ResponseEntity<ErrorInfo> invalidUserExceptin(InvalidUserException idNotFoundExceotion){
     	ErrorInfo errorInfo = new ErrorInfo();
-    	errorInfo.setErrorMessage(idNotFoundExceotion.getmsg());
+    	errorInfo.setErrorMessage(idNotFoundExceotion.getMessage());
     	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
     	errorInfo.setLocalDateTime(LocalDateTime.now());
 		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
@@ -36,9 +36,48 @@ public class GlobalExceptionHandler {
 	}
     
     @ExceptionHandler(UserNotFoundException.class)
-	public ResponseEntity<ErrorInfo> idnotFoundExp(UserNotFoundException idNotFoundExceotion){
+	public ResponseEntity<ErrorInfo> userNotFoundExp(UserNotFoundException idNotFoundExceotion){
     	ErrorInfo errorInfo = new ErrorInfo();
-    	errorInfo.setErrorMessage(idNotFoundExceotion.getmsg());
+    	errorInfo.setErrorMessage(idNotFoundExceotion.getMessage()) ;
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+    @ExceptionHandler(CartItemEmptyException.class)
+	public ResponseEntity<ErrorInfo> cartItemEmptyExp(CartItemEmptyException cartItemEmptyException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(cartItemEmptyException.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+    
+    @ExceptionHandler(CartIdNotFoundException.class)
+	public ResponseEntity<ErrorInfo> cartIdNotFoundExp(CartIdNotFoundException cartIdNotFoundException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(cartIdNotFoundException.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+    
+    @ExceptionHandler(OrderIdNotFoundException.class)
+	public ResponseEntity<ErrorInfo> cartIdNotFoundExp(OrderIdNotFoundException cartIdNotFoundException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(cartIdNotFoundException.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+    
+    @ExceptionHandler(OrderItemEmptyException.class)
+	public ResponseEntity<ErrorInfo> cartIdNotFoundExp(OrderItemEmptyException orderItemEmptyException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(orderItemEmptyException.getMessage());
     	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
     	errorInfo.setLocalDateTime(LocalDateTime.now());
 		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
