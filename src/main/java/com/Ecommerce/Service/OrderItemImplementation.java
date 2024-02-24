@@ -43,47 +43,70 @@ public class OrderItemImplementation implements OrderItemInterface{
 
 
 	@Override
-		public String OrderProducts(Long productId, Long orderId, OrderItem orderItem) {
+		public String OrderProducts(Long productId, Long customerId, OrderItem orderItem) {
 		
-			if(productRepository.existsById(productId)) {
-				ProductName product = productRepository.findByProductId(productId);
+		if(userRespository.existsById(customerId)) {
+
+			UserDetails userDetails =  userRespository.findByCustomerId(customerId);
+			
+			Orders orderDetails = orderRepository.findByCustomer(userDetails);
+			
+			if(orderDetails != null) {
 				
-				if(orderRepository.existsById(orderId)) {
-					Orders orders = orderRepository.findByOrderId(orderId);
+				if(orderRepository.existsById(orderDetails.getOrderId())) {
 					
+					if(productRepository.existsById(productId)) {
+						
+						ProductName product = productRepository.findByProductId(productId);
+						
+						if(product.getProductCost() == null) {
+							
+							throw new ProductNotFoundException(AppConstant.ProductCostIssue);
+						}
+							
+							OrderItem orderItemDetails = new OrderItem();
+							
+							
+							orderItemDetails.setOrder(orderDetails);
+							orderItemDetails.setCreatedAt(LocalDate.now());
+							orderItemDetails.setProduct(product);
+							//orderItemDetails.setProductUnitPrice(product.getProductCost());
+							orderItemDetails.setProductquantity(orderItem.getProductquantity());
+							double totalPrice = orderItemDetails.setTotalPurchasePrice(product.getProductCost() * orderItem.getProductquantity());
+							
+							orderItemRespository.save(orderItemDetails);
+							
+							
+							return "Your order was placed successfully, and your total price is $" + totalPrice;
+						
+					}
+					else {
+						
+						throw new ProductNotFoundException(AppConstant.productIdNotFound);
+						
+					}
 					
-					OrderItem orderItemDetails = new OrderItem();
-					
-					
-					orderItemDetails.setOrder(orders);
-					orderItemDetails.setCreatedAt(LocalDate.now());
-					orderItemDetails.setProduct(product);
-					//orderItemDetails.setProductUnitPrice(product.getProductCost());
-					orderItemDetails.setProductquantity(orderItem.getProductquantity());
-					double totalPrice = orderItemDetails.setTotalPurchasePrice(product.getProductCost() * orderItem.getProductquantity());
-					
-					orderItemRespository.save(orderItemDetails);
-					
-					
-					return "Your order was placed successfully, and your total price is $" + totalPrice;
 					
 				}
 				else {
-
+					
 					throw new OrderIdNotFoundException(AppConstant.OrderIdNotFound);
 					
 				}
-				
-				
-			}
+			
+		    }
 			else {
 				
-				throw new ProductNotFoundException(AppConstant.productIdNotFound);
-				
+				throw new OrderIdNotFoundException(AppConstant.OrderIdNotFound);
+					
 			}
 			
+		}
+		
+		else {
 			
-			
+			throw new UserNotFoundException(AppConstant.UserIdNotFound);
+		}
 			
 	}
 

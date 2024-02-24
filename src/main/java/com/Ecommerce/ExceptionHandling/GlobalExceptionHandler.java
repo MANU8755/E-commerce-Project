@@ -95,4 +95,43 @@ public class GlobalExceptionHandler {
 	}
     
 
+    @ExceptionHandler(UserAlreadyExistedException.class)
+	public ResponseEntity<ErrorInfo> userAlreadyExistedExcep(UserAlreadyExistedException userAlreadyExistedException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(userAlreadyExistedException.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+
+    @ExceptionHandler(CategoryIdNotFound.class)
+	public ResponseEntity<ErrorInfo> userAlreadyExistedExcep(CategoryIdNotFound categoryIdNotFound){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(categoryIdNotFound.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+    
+    @ExceptionHandler(SellerNotFoundException.class)
+	public ResponseEntity<ErrorInfo> userAlreadyExistedExcep(SellerNotFoundException sellerNotFoundException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(sellerNotFoundException.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+    
+    @ExceptionHandler(SelllerEmptyProductsException.class)
+	public ResponseEntity<ErrorInfo> userAlreadyExistedExcep(SelllerEmptyProductsException emptyProductsException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(emptyProductsException.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
 }

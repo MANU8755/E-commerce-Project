@@ -11,6 +11,7 @@ public interface SellerRepository extends JpaRepository<Seller, Long>{
 	
 	public Seller findBySellerId(Long sellerId);
 	
+	
 
 
 }

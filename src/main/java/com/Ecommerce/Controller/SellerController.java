@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecommerce.DTO.MessageInfo;
 import com.Ecommerce.Entity.Seller;
 import com.Ecommerce.Service.SellerServiceImplementation;
 
@@ -24,8 +25,8 @@ public class SellerController {
 	
 	
 	@PostMapping("/sellerRegister/{customerId}")
-	public ResponseEntity<String> RegisterSellerDetails(@PathVariable Long customerId,@RequestBody Seller sellerRequest){
-		return new ResponseEntity<String>(sellerServiceImplementation.sellerRegistration(customerId,sellerRequest),HttpStatus.OK);
+	public ResponseEntity<MessageInfo> RegisterSellerDetails(@PathVariable Long customerId,@RequestBody Seller sellerRequest){
+		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.sellerRegistration(customerId,sellerRequest),HttpStatus.OK);
 		
 	}
 	

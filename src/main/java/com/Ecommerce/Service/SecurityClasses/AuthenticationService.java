@@ -11,7 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Ecommerce.DAO.UserRespository;
+import com.Ecommerce.DTO.LoginDetails;
+import com.Ecommerce.DTO.MessageInfo;
 import com.Ecommerce.Entity.User;
+import com.Ecommerce.ExceptionHandling.UserAlreadyExistedException;
 import com.Ecommerce.ExceptionHandling.UserNotFoundException;
 import com.Ecommerce.Service.CartServiceImplementation;
 import com.Ecommerce.Service.OrderServiceImplementation;
@@ -51,13 +54,15 @@ public class AuthenticationService {
 		this.authenticationManager = authenticationManager;
 	}
 
-	public String register(User request) {
+	public MessageInfo register(User request) {
+		
 
         // check if user already exist. if exist than authenticate the user
 		UserDetails userCheck = repository.findBycustomerEmailId(request.getCustomerEmailId());
-		   if (userCheck != null) {
-	            return "User already exists";
-	        }
+		if (userCheck != null) {
+			   
+			 throw new UserAlreadyExistedException(AppConstant.UserAlreadyExisted);
+	    }
 
         User user = new User();
         user.setCustomerName(request.getCustomerName());
@@ -75,7 +80,7 @@ public class AuthenticationService {
 //
 //        saveUserToken(jwt, user);
 
-        return  "User registration was successful";
+        return new MessageInfo(AppConstant.UserRegistratioStatus);
 
     }
 
@@ -84,60 +89,54 @@ public class AuthenticationService {
     
     
     public LoginDetails authenticate(User request) {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getCustomerEmailId(),
-                            request.getPassword()
-                    )
-            );
-
-            // Retrieve user details
-            UserDetails user = repository.findBycustomerEmailId(request.getCustomerEmailId());;
-            if (user == null) {
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(
+//                            request.getCustomerEmailId(),
+//                            request.getPassword()
+//                    )
+//            );
+            
+            User user = repository.findByCustomerEmailId(request.getCustomerEmailId());
+            
+            if(user != null) {
+            	if(repository.existsById(user.getCustomerId())) {
+                	
+               	 if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+               		 
+                        // Generate JWT
+                        String jwt = jwtService.generateToken(user);
+                        
+                        LoginDetails loginDetails = new LoginDetails();
+                        
+                        loginDetails.setCustomerId(user.getCustomerId());
+                        
+                        loginDetails.setCustomerName(user.getCustomerName());
+                        
+                        loginDetails.setSellerOrNot(user.isSeller());
+                        
+                        loginDetails.setToken(jwt);
+                             
+                        loginDetails.setMessageInfo(AppConstant.userLoginInfo);
+                        
+                        return loginDetails;
+                       
+                 }
+               	 else {
+               		 throw new UserNotFoundException(AppConstant.WrongPasswordInfo);
+               		 }         
+               }
+            	else {
+            		throw new UserNotFoundException(AppConstant.userLoginWrongCredentialsInfo);
+            	}
+            	
+            }
+            
+            else {
                 
             	throw new UserNotFoundException(AppConstant.userLoginWrongCredentialsInfo);
             }
-
-;            // Compare encoded passwords
-            if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                
-            	throw new UsernameNotFoundException(AppConstant.userLoginInfo);
-            }
-	
-            User userDetails = repository.findByCustomerEmailId(request.getCustomerEmailId());
-          
-            if (userDetails == null) {
-              
-          	throw new UserNotFoundException(AppConstant.userLoginWrongCredentialsInfo);
-          	
-          }
-            
            
-            // Generate JWT
-            String jwt = jwtService.generateToken(user);
-            
-            LoginDetails loginDetails = new LoginDetails();
-            
-            loginDetails.setCustomerId(userDetails.getCustomerId());
-            
-            loginDetails.setCustomerName(userDetails.getCustomerName());
-            
-            loginDetails.setSellerOrNot(userDetails.isSeller());
-            
-            loginDetails.setToken(jwt);
-            
-            
-            return loginDetails;
-            
         
     }
 
-//    
-//    private void saveUserToken(String jwt, User user) {
-//        Token token = new Token();
-//        token.setToken(jwt);
-//        token.setLoggedOut(false);
-//        token.setUser(user);
-//        tokenRepository.save(token);
-//    }
 }

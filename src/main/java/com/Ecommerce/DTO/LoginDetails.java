@@ -1,4 +1,5 @@
-package com.Ecommerce.Service.SecurityClasses;
+package com.Ecommerce.DTO;
+
 
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,8 @@ public class LoginDetails {
 	public boolean isSellerOrNot;
 	
 	public String customerName;
+	
+	public String MessageInfo;
 
 	public LoginDetails(String token, Long customerId, boolean isSellerOrNot, String customerName) {
 		super();
@@ -54,6 +57,11 @@ public class LoginDetails {
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}
+
+
+	public void setMessageInfo(String messageInfo) {
+		MessageInfo = messageInfo;
 	}
 	
 	

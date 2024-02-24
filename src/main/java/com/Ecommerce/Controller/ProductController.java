@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecommerce.DTO.MessageInfo;
 import com.Ecommerce.Entity.ProductName;
 import com.Ecommerce.Service.ProductServiceImplementation;
 
@@ -23,9 +25,9 @@ public class ProductController {
 	ProductServiceImplementation productServiceImplementation;
 	
 	@PostMapping("/product/{categoryId}/{sellerId}")
-	public ResponseEntity<String> addProducts(@PathVariable Long categoryId,@PathVariable Long sellerId,@RequestBody ProductName productName){
+	public ResponseEntity<MessageInfo> addProducts(@PathVariable Long categoryId,@PathVariable Long sellerId,@RequestBody ProductName productName){
 		
-		return new ResponseEntity<String>(productServiceImplementation.addProducts(categoryId,sellerId,productName), HttpStatus.OK);
+		return new ResponseEntity<MessageInfo>(productServiceImplementation.addProducts(categoryId,sellerId,productName), HttpStatus.OK);
 		
 	}
  	
@@ -44,5 +46,14 @@ public class ProductController {
 	public ResponseEntity<ProductName> getProductById(@PathVariable Long productId){
 		return new ResponseEntity<ProductName>(productServiceImplementation.getProductById(productId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/getsellerProducts/{sellerId}")
+	public ResponseEntity<List<ProductName>> GerProductDetailsBasedOnSellerId(@PathVariable Long sellerId){
+		return new ResponseEntity<List<ProductName>>(productServiceImplementation.getAllProductsBasedOnSellerId(sellerId), HttpStatus.OK);
+	}
+	
+	//@PutMapping("/product/{customerId}")
+	//public ResponseEntity<MessageInfo> updateProductsByTheSeller(@PathVariable Long customerId,)
+	
 
 }

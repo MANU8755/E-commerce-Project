@@ -12,6 +12,7 @@ import com.Ecommerce.DAO.CartItemRespository;
 import com.Ecommerce.DAO.CartRepository;
 import com.Ecommerce.DAO.ProductRepository;
 import com.Ecommerce.DAO.UserRespository;
+import com.Ecommerce.DTO.MessageInfo;
 //import com.Ecommerce.DAO.UserRespository;
 import com.Ecommerce.Entity.Cart;
 import com.Ecommerce.Entity.CartItem;
@@ -43,45 +44,60 @@ public class CartItemImplementation implements CartItemInterface{
 	
 	
 	@Override
-	public String addProductsToCart(Long ProductId,Long cartId,CartItem cartItem) {
-//		
-//		User userDetails = userRespository.findByCustomerId(userId);
-		System.out.println("productId is $" + ProductId);
-
+	public MessageInfo addProductsToCart(Long ProductId,Long customerId,CartItem cartItem) {
 		
-		if(productRepository.existsById(ProductId)) {
+		
+		if(userRespository.existsById(customerId)) {
 
-			ProductName product = productRepository.findByProductId(ProductId);
+			UserDetails userDetails =  userRespository.findByCustomerId(customerId);
 			
-			if(productRepository.existsById(cartId)) {
+			Cart cartDetails = cartRepository.findByCustomer(userDetails);
+			
+			if(cartDetails != null) {
 				
-				Cart cartDetails = cartRepository.findByCartId(cartId);
+				if(productRepository.existsById(ProductId)) {
+
+					ProductName product = productRepository.findByProductId(ProductId);
 				
-				CartItem cartItemdetails = new CartItem();
-				
-				cartItemdetails.setProduct(product);
-				//cartItemdetails.setUser(userDetails);
-				cartItemdetails.setProductQuantity(cartItem.getProductQuantity());
-				cartItemdetails.setCart(cartDetails);
-				//System.out.println(product.getProductCost());
-				cartItemdetails.setTotalPurchasePrice((cartItem.getProductQuantity()) * (product.getProductCost()));
-				cartItemdetails.setCreatedAt(LocalDate.now());
-				
-				cartItemRespository.save(cartItemdetails);
-				
-				return "Product added successfully to the User Cart";
+					if(product.getProductCost()== null) {
+						
+						throw new ProductNotFoundException(AppConstant.ProductCostIssue);
+					}
+						CartItem cartItemdetails = new CartItem();
+						
+						cartItemdetails.setProduct(product);
+						//cartItemdetails.setUser(userDetails);
+						cartItemdetails.setProductQuantity(cartItem.getProductQuantity());
+						cartItemdetails.setCart(cartDetails);
+						//System.out.println(product.getProductCost());
+						cartItemdetails.setTotalPurchasePrice((cartItem.getProductQuantity()) * (product.getProductCost()));
+						cartItemdetails.setCreatedAt(LocalDate.now());
+						
+						cartItemRespository.save(cartItemdetails);
+						
+						return new MessageInfo(AppConstant.ProductAddedtoCartInfo);
+					
+				}
+				else {
+					
+					throw new ProductNotFoundException(AppConstant.productIdNotFound);
+				}
 				
 			}
 			else {
-				throw new CartIdNotFoundException(AppConstant.CartIdNotFound);
 				
+				throw new CartIdNotFoundException(AppConstant.CartIdNotFound);
 			}
-			
 		}
 		else {
 			
-			throw new ProductNotFoundException(AppConstant.productIdNotFound);
+			throw new UserNotFoundException(AppConstant.UserIdNotFound);
+				
 		}
+		
+
+		
+		
 }
 
 
@@ -90,19 +106,46 @@ public class CartItemImplementation implements CartItemInterface{
 
 
 	@Override
-	public String deleteItemsFromCart(Long productId,Long cartId) {
+	public MessageInfo deleteItemsFromCart(Long productId,Long customerId) {
 		
-	    System.out.println("Received cartId: " + cartId); 
-	    
-		if(cartRepository.existsById(cartId)) {
-			cartItemRespository.deleteByProductId(productId);
+		//here product is added without checking whether the productId is there are not so write the condition to the project
+		
+		if(userRespository.existsById(customerId)) {
+			
+			if(productRepository.existsById(productId)) {
+				
+                UserDetails userDetails =  userRespository.findByCustomerId(customerId);
+				
+				Cart cartDetails = cartRepository.findByCustomer(userDetails);
+				
+				if(cartDetails != null) {
 
-			return "product removed from the cart";
+					cartItemRespository.deleteByProductId(productId);
+					
+					return new MessageInfo(AppConstant.CartDeleteInfo);
+				}
+				else {
+					
+					throw new CartIdNotFoundException(AppConstant.CartIdNotFound);
+			
+				}
+				
+			}
+			else {
+				
+				throw new ProductNotFoundException(AppConstant.productIdNotFound);
+			}
+
 			
 		}
+		
 		else {
-			return "cart id is not even existed";
+
+			throw new UserNotFoundException(AppConstant.UserIdNotFound);
 		}
+
+			
+		
 		
 	}
 

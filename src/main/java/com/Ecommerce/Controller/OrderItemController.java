@@ -23,10 +23,10 @@ public class OrderItemController {
 	OrderItemImplementation orderItemImplementation;
 	
 	
-	@PostMapping("/order/{orderId}/{productId}")
-	public ResponseEntity<String> orderProducts(@PathVariable Long orderId,@PathVariable Long productId,@RequestBody OrderItem orderItem){
+	@PostMapping("/order/{customerId}/{productId}")
+	public ResponseEntity<String> orderProducts(@PathVariable Long customerId,@PathVariable Long productId,@RequestBody OrderItem orderItem){
 		
-		return new ResponseEntity<String>(orderItemImplementation.OrderProducts(productId, orderId, orderItem), HttpStatus.OK);
+		return new ResponseEntity<String>(orderItemImplementation.OrderProducts(productId,customerId, orderItem), HttpStatus.OK);
 	}
  	
 	

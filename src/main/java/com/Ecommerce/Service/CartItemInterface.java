@@ -2,16 +2,17 @@ package com.Ecommerce.Service;
 
 import java.util.List;
 
+import com.Ecommerce.DTO.MessageInfo;
 import com.Ecommerce.Entity.CartItem;
 
 //import com.Ecommerce.Entity.CartItem;
 
 public interface CartItemInterface {
 
-      public String addProductsToCart(Long productId,Long CartId,CartItem cartItem);
+      public MessageInfo addProductsToCart(Long productId,Long customerId,CartItem cartItem);
       
 	
-      public String deleteItemsFromCart(Long productId,Long cartId);
+      public MessageInfo deleteItemsFromCart(Long productId,Long cartId);
       
       public List<CartItem> getAllCartItemBasedOnCustomerId(Long customerId);
 	

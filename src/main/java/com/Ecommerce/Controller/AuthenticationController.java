@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecommerce.DTO.LoginDetails;
+import com.Ecommerce.DTO.MessageInfo;
 import com.Ecommerce.Entity.User;
 import com.Ecommerce.Service.SecurityClasses.AuthenticationService;
-import com.Ecommerce.Service.SecurityClasses.LoginDetails;
 
 @CrossOrigin
 @RestController
@@ -22,7 +23,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(
+    public ResponseEntity<MessageInfo> register(
             @RequestBody User request
             ) {
         return ResponseEntity.ok(authService.register(request));
