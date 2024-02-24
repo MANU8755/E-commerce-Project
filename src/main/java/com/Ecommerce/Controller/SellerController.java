@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Ecommerce.Entity.Seller;
 import com.Ecommerce.Service.SellerServiceImplementation;
 
+@CrossOrigin
 @RestController
 public class SellerController {
 	
@@ -31,5 +33,7 @@ public class SellerController {
 	public ResponseEntity<List<Seller>> getAllUsers(){
 		return new ResponseEntity<List<Seller>>(sellerServiceImplementation.getAllseller(), HttpStatus.OK);
 	}
+	
+	
 
 }

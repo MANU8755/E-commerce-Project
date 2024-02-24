@@ -6,13 +6,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Ecommerce.DAO.UserRespository;
 import com.Ecommerce.Entity.User;
+import com.Ecommerce.ExceptionHandling.UserNotFoundException;
 import com.Ecommerce.Service.CartServiceImplementation;
 import com.Ecommerce.Service.OrderServiceImplementation;
+import com.Ecommerce.Util.AppConstant;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,6 +36,9 @@ public class AuthenticationService {
     
     @Autowired
     OrderServiceImplementation orderServiceImplementation;
+    
+    @Autowired
+    LoginDetails loginDetails;
 
     
 
@@ -73,35 +79,11 @@ public class AuthenticationService {
 
     }
 
-    public String authenticate1(User request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getCustomerEmailId(),
-                        request.getPassword()
-                )
-        );
+	
 
-        UserDetails user = repository.findBycustomerEmailId(request.getCustomerEmailId());
-        String jwt = jwtService.generateToken(user);
-
-//        List<Token> validTokens = tokenRepository.findAllTokensByUser(((User) user).getCustomerId());
-//        if(validTokens.isEmpty()) {
-//            return "Please enter a valid token";
-//        }
-
-//        validTokens.forEach(t-> {
-//            t.setLoggedOut(true);
-//        });
-//
-//        tokenRepository.saveAll(validTokens);
-
-
-        return "User login was successful";
-
-    }
-    public String authenticate(User request) {
-        try {
-            // Attempt authentication
+    
+    
+    public LoginDetails authenticate(User request) {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getCustomerEmailId(),
@@ -110,43 +92,44 @@ public class AuthenticationService {
             );
 
             // Retrieve user details
-            UserDetails user = repository.findBycustomerEmailId(request.getCustomerEmailId());
-//            UserDetails userPassword = repository.findByPassword(request.getPassword());
-//            String hashedPassword = passwordEncoder.encode(request.getPassword());
+            UserDetails user = repository.findBycustomerEmailId(request.getCustomerEmailId());;
             if (user == null) {
-                return "User not found";
+                
+            	throw new UserNotFoundException(AppConstant.userLoginWrongCredentialsInfo);
             }
 
-            // Compare encoded passwords
+;            // Compare encoded passwords
             if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                return "Invalid password";
+                
+            	throw new UsernameNotFoundException(AppConstant.userLoginInfo);
             }
 	
+            User userDetails = repository.findByCustomerEmailId(request.getCustomerEmailId());
+          
+            if (userDetails == null) {
+              
+          	throw new UserNotFoundException(AppConstant.userLoginWrongCredentialsInfo);
+          	
+          }
+            
            
             // Generate JWT
             String jwt = jwtService.generateToken(user);
-
-            // Retrieve valid tokens for the user
-//            List<Token> validTokens = tokenRepository.findAllTokensByUser(((User) user).getCustomerId());
-//            if (validTokens.isEmpty()) {
-//                return "Please enter a valid token";
-//            }
-//
-//            // Invalidate existing tokens
-//            validTokens.forEach(t -> {
-//                t.setLoggedOut(true);
-//            });
-//
-//            tokenRepository.saveAll(validTokens);
-
-            return jwt;
-        } catch (AuthenticationException e) {
-            // Authentication failed
-            return "Authentication failed: " + e.getMessage();
-        } catch (Exception e) {
-            // Other unexpected errors
-            return "An unexpected error occurred: " + e.getMessage();
-        }
+            
+            LoginDetails loginDetails = new LoginDetails();
+            
+            loginDetails.setCustomerId(userDetails.getCustomerId());
+            
+            loginDetails.setCustomerName(userDetails.getCustomerName());
+            
+            loginDetails.setSellerOrNot(userDetails.isSeller());
+            
+            loginDetails.setToken(jwt);
+            
+            
+            return loginDetails;
+            
+        
     }
 
 //    

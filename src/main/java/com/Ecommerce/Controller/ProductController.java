@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Ecommerce.Entity.ProductName;
 import com.Ecommerce.Service.ProductServiceImplementation;
 
+@CrossOrigin
 @RestController
 public class ProductController {
 	
@@ -36,6 +38,11 @@ public class ProductController {
 	@GetMapping("/getProductByCategory/{categoryId}")
 	public ResponseEntity<List<ProductName>> categoryWiseProducts(@PathVariable Long categoryId){
 		return new ResponseEntity<List<ProductName>>(productServiceImplementation.categoryWiseProductsList(categoryId), HttpStatus.OK);
+	}
+	
+	@GetMapping("/getProduct/{productId}")
+	public ResponseEntity<ProductName> getProductById(@PathVariable Long productId){
+		return new ResponseEntity<ProductName>(productServiceImplementation.getProductById(productId), HttpStatus.OK);
 	}
 
 }

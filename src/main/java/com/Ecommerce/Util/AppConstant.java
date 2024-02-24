@@ -21,6 +21,8 @@ public interface AppConstant {
 
 	public static final String OrderItemIsEmpty = "You haven't ordered anything yet";
 	
+	public static final String productIdNotFound = "You selected product is not found select another product";
+	
 	
 
 	

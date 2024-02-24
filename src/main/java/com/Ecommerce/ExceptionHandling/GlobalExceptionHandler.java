@@ -84,5 +84,15 @@ public class GlobalExceptionHandler {
 		
 	}
     
+    @ExceptionHandler(ProductNotFoundException.class)
+	public ResponseEntity<ErrorInfo> cartIdNotFoundExp(ProductNotFoundException productNotFoundException){
+    	ErrorInfo errorInfo = new ErrorInfo();
+    	errorInfo.setErrorMessage(productNotFoundException.getMessage());
+    	errorInfo.setStatus(HttpStatus.BAD_REQUEST.toString());
+    	errorInfo.setLocalDateTime(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+		
+	}
+    
 
 }

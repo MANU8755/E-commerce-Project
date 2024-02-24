@@ -1,13 +1,16 @@
 package com.Ecommerce.Controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecommerce.Entity.User;
 import com.Ecommerce.Service.SecurityClasses.AuthenticationService;
+import com.Ecommerce.Service.SecurityClasses.LoginDetails;
 
+@CrossOrigin
 @RestController
 public class AuthenticationController {
 
@@ -26,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(
+    public ResponseEntity<LoginDetails> login(
             @RequestBody User request
     ) {
         return ResponseEntity.ok(authService.authenticate(request));

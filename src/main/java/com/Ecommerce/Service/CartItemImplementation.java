@@ -18,6 +18,7 @@ import com.Ecommerce.Entity.CartItem;
 import com.Ecommerce.Entity.ProductName;
 import com.Ecommerce.ExceptionHandling.CartIdNotFoundException;
 import com.Ecommerce.ExceptionHandling.CartItemEmptyException;
+import com.Ecommerce.ExceptionHandling.ProductNotFoundException;
 import com.Ecommerce.ExceptionHandling.UserNotFoundException;
 import com.Ecommerce.Util.AppConstant;
 //import com.Ecommerce.Entity.User;
@@ -48,38 +49,41 @@ public class CartItemImplementation implements CartItemInterface{
 		System.out.println("productId is $" + ProductId);
 
 		
-		if(!productRepository.existsById(ProductId)) {
-			return "Please enter a valid productID";
-		}
-		if(!productRepository.existsById(cartId)) {
-			return "Please enter a valid cartID";
-		}
-		ProductName product = productRepository.findByProductId(ProductId);
-		
-		Cart cartDetails = cartRepository.findByCartId(cartId);
-		
-		CartItem cartItemdetails = new CartItem();
-		
-		cartItemdetails.setProduct(product);
-		//cartItemdetails.setUser(userDetails);
-		cartItemdetails.setProductQuantity(cartItem.getProductQuantity());
-		cartItemdetails.setCart(cartDetails);
-		cartItemdetails.setProductUnitPrice(cartItem.getProductUnitPrice());
-		//System.out.println(product.getProductCost());
-		cartItemdetails.setTotalPurchasePrice((cartItem.getProductQuantity()) * (cartItem.getProductUnitPrice()));
-		cartItemdetails.setCreatedAt(LocalDate.now());
-		
-		cartItemRespository.save(cartItemdetails);
-		
-		return "Product added successfully to the User Cart";
-	}
+		if(productRepository.existsById(ProductId)) {
 
+			ProductName product = productRepository.findByProductId(ProductId);
+			
+			if(productRepository.existsById(cartId)) {
+				
+				Cart cartDetails = cartRepository.findByCartId(cartId);
+				
+				CartItem cartItemdetails = new CartItem();
+				
+				cartItemdetails.setProduct(product);
+				//cartItemdetails.setUser(userDetails);
+				cartItemdetails.setProductQuantity(cartItem.getProductQuantity());
+				cartItemdetails.setCart(cartDetails);
+				//System.out.println(product.getProductCost());
+				cartItemdetails.setTotalPurchasePrice((cartItem.getProductQuantity()) * (product.getProductCost()));
+				cartItemdetails.setCreatedAt(LocalDate.now());
+				
+				cartItemRespository.save(cartItemdetails);
+				
+				return "Product added successfully to the User Cart";
+				
+			}
+			else {
+				throw new CartIdNotFoundException(AppConstant.CartIdNotFound);
+				
+			}
+			
+		}
+		else {
+			
+			throw new ProductNotFoundException(AppConstant.productIdNotFound);
+		}
+}
 
-	@Override
-	public List<CartItem> getAllCartItems() {
-		// TODO Auto-generated method stub
-		return cartItemRespository.findAll();
-	}
 
 
 	

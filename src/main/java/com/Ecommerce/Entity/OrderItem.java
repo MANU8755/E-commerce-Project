@@ -31,8 +31,6 @@ public class OrderItem {
 
     private int productquantity;
     
-    private double productUnitPrice;
-    
     
     private double totalPurchasePrice;
     
@@ -154,16 +152,7 @@ public class OrderItem {
 
 
 
-	public double getProductUnitPrice() {
-		return productUnitPrice;
-	}
 
-
-
-
-	public Double setProductUnitPrice(double productUnitPrice) {
-		return this.productUnitPrice = productUnitPrice;
-	}
 
 
 

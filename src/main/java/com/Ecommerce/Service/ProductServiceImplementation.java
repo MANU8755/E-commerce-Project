@@ -12,6 +12,8 @@ import com.Ecommerce.DAO.SellerRepository;
 import com.Ecommerce.Entity.CategoryType;
 import com.Ecommerce.Entity.ProductName;
 import com.Ecommerce.Entity.Seller;
+import com.Ecommerce.ExceptionHandling.ProductNotFoundException;
+import com.Ecommerce.Util.AppConstant;
 
 @Service
 public class ProductServiceImplementation implements  ProductServiceInterface{
@@ -77,6 +79,20 @@ public class ProductServiceImplementation implements  ProductServiceInterface{
 		}
 
 		return null;
+	}
+
+	@Override
+	public ProductName getProductById(Long productId) {
+		
+		if(productRepository.existsById(productId)) {
+			ProductName productDetails =  productRepository.findByProductId(productId);
+			
+			return productDetails;
+			
+		}
+		else {
+			throw new ProductNotFoundException(AppConstant.productIdNotFound);
+		}
 	}
 
 	

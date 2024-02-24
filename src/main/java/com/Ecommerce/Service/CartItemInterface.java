@@ -10,7 +10,6 @@ public interface CartItemInterface {
 
       public String addProductsToCart(Long productId,Long CartId,CartItem cartItem);
       
-      public List<CartItem> getAllCartItems();
 	
       public String deleteItemsFromCart(Long productId,Long cartId);
       

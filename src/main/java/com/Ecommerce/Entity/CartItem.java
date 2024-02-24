@@ -35,8 +35,6 @@ public class CartItem {
 
     private int productQuantity;
     
-    private double productUnitPrice;
-    
     
     private double TotalPurchasePrice;
 
@@ -53,14 +51,13 @@ public class CartItem {
 	}
 
 	
-	public CartItem(Long cartItemId, ProductName product, Cart cart, int productQuantity, double productUnitPrice,
+	public CartItem(Long cartItemId, ProductName product, Cart cart, int productQuantity,
 			double totalPurchasePrice, LocalDate createdAt, LocalDate updatedAt) {
 		super();
 		this.cartItemId = cartItemId;
 		this.product = product;
 		this.cart = cart;
 		this.productQuantity = productQuantity;
-		this.productUnitPrice = productUnitPrice;
 		TotalPurchasePrice = totalPurchasePrice;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -98,17 +95,6 @@ public class CartItem {
 
 	public void setProductQuantity(int productQuantity) {
 		this.productQuantity = productQuantity;
-	}
-
-
-
-	public double getProductUnitPrice() {
-		return productUnitPrice;
-	}
-
-
-	public void setProductUnitPrice(double productUnitPrice) {
-		this.productUnitPrice = productUnitPrice;
 	}
 
 

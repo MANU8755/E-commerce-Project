@@ -38,7 +38,7 @@ public class ProductName {
 	private String productQuantity;
 	
 	
-    @JsonIgnore
+   // @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoryId",referencedColumnName = "categoryId")
     private CategoryType categoryType;
