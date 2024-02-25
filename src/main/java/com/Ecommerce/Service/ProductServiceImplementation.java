@@ -141,6 +141,8 @@ public class ProductServiceImplementation implements  ProductServiceInterface{
 				
 				List<ProductName> produtDetails = productRepository.findBySeller(sellerDetails);
 				
+				
+				
 				if(produtDetails.isEmpty()) {
 					
 					throw new SelllerEmptyProductsException(AppConstant.SellerProdctsEmptyList);

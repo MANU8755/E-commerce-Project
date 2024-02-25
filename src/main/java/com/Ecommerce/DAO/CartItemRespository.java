@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.Ecommerce.Entity.Cart;
 import com.Ecommerce.Entity.CartItem;
+import com.Ecommerce.Entity.ProductName;
 
 import jakarta.transaction.Transactional;
 
@@ -35,6 +36,7 @@ public interface CartItemRespository extends JpaRepository<CartItem, Long> {
     
     List<CartItem> findByCart(Cart cart);
     
+    List<CartItem> findByProduct(ProductName product);
     
     
 }

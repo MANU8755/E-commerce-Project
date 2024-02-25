@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecommerce.DTO.MessageInfo;
+import com.Ecommerce.Entity.ProductName;
 import com.Ecommerce.Entity.Seller;
 import com.Ecommerce.Service.SellerServiceImplementation;
 
@@ -33,6 +36,18 @@ public class SellerController {
 	@GetMapping("/getsellerdetails")
 	public ResponseEntity<List<Seller>> getAllUsers(){
 		return new ResponseEntity<List<Seller>>(sellerServiceImplementation.getAllseller(), HttpStatus.OK);
+	}
+	
+	@PutMapping("/seller/{customerId}")
+	public ResponseEntity<MessageInfo> updateProductsByTheSeller(@PathVariable Long customerId,@RequestBody ProductName product){
+		
+		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.updateProductAddedBySeller(product, customerId),HttpStatus.OK);
+	}
+		
+	@DeleteMapping("/seller/{productId}/{customerId}")
+	public ResponseEntity<MessageInfo> deleteProductsAddedBySeller(@PathVariable Long productId,@PathVariable Long customerId){
+		
+		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.deleteProductAddedBySeller(productId, customerId), HttpStatus.OK);
 	}
 	
 	

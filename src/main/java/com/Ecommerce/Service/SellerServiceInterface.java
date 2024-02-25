@@ -15,5 +15,7 @@ public interface SellerServiceInterface {
 	
 	public MessageInfo updateProductAddedBySeller(ProductName productName,Long customerId);
 	
+	public MessageInfo deleteProductAddedBySeller(Long productId,Long customerId);
+	
 	
 }

@@ -52,8 +52,6 @@ public class ProductController {
 		return new ResponseEntity<List<ProductName>>(productServiceImplementation.getAllProductsBasedOnSellerId(sellerId), HttpStatus.OK);
 	}
 	
-	//@PutMapping("/product/{customerId}")
-	//public ResponseEntity<MessageInfo> updateProductsByTheSeller(@PathVariable Long customerId,)
 	
 
 }
