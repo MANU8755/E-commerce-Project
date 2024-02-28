@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecommerce.DTO.MessageInfo;
+import com.Ecommerce.DTO.SellerDetailsDto;
 import com.Ecommerce.Entity.ProductName;
 import com.Ecommerce.Entity.Seller;
 import com.Ecommerce.Service.SellerServiceImplementation;
@@ -50,6 +51,10 @@ public class SellerController {
 		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.deleteProductAddedBySeller(productId, customerId), HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/sellerByCusomterId/{customerId}")
+	public ResponseEntity<SellerDetailsDto> getSellerDetailsByCustomerId(@PathVariable Long customerId){
+		
+		return new ResponseEntity<SellerDetailsDto>(sellerServiceImplementation.getSellerDetailsByCustomerId(customerId), HttpStatus.OK);
+	}
 
 }

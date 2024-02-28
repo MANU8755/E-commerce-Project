@@ -57,6 +57,7 @@ public class ProductServiceImplementation implements  ProductServiceInterface{
 						product.setProductName(productRequest.getProductName());
 						product.setProductImage1(productRequest.getProductImage1());
 				        product.setCategoryType(categoryType);
+				        product.setProductCost(productRequest.getProductCost());
 				        product.setSeller(seller);
 				        product.setCreatedAt(LocalDate.now());
 				        product.setDescription(productRequest.getDescription());

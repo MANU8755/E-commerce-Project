@@ -13,6 +13,7 @@ import com.Ecommerce.DAO.ProductRepository;
 import com.Ecommerce.DAO.SellerRepository;
 import com.Ecommerce.DAO.UserRespository;
 import com.Ecommerce.DTO.MessageInfo;
+import com.Ecommerce.DTO.SellerDetailsDto;
 import com.Ecommerce.Entity.CartItem;
 import com.Ecommerce.Entity.OrderItem;
 import com.Ecommerce.Entity.Orders;
@@ -88,7 +89,7 @@ public class SellerServiceImplementation implements SellerServiceInterface{
 		
 		if(productRepository.existsById(product.getProductId())) {
 			
-			ProductName productName = productRepository.findByProductId(customerId);
+			ProductName productName = productRepository.findByProductId(product.getProductId());
 			
 			if(userRespository.existsById(customerId)) {
 				
@@ -124,6 +125,7 @@ public class SellerServiceImplementation implements SellerServiceInterface{
 		return null;
 	}
 
+	
 	@Override
 	public MessageInfo deleteProductAddedBySeller(Long productId, Long customerId) {
 		
@@ -135,7 +137,7 @@ public class SellerServiceImplementation implements SellerServiceInterface{
 				
 				if(userRespository.existsById(customerId)) {
 					
-					User userDetails = userRespository.findByCustomerId(customerId);
+					//User userDetails = userRespository.findByCustomerId(customerId);
 					
 					List<OrderItem> orderDetails = orderItemRespository.findByProduct(productName);
 					
@@ -196,6 +198,31 @@ public class SellerServiceImplementation implements SellerServiceInterface{
 		}
 		return null;
 
+	}
+
+	@Override
+	public SellerDetailsDto getSellerDetailsByCustomerId(Long customerId) {
+		
+		User userDetails = userRespository.findByCustomerId(customerId);
+		
+		if(userDetails != null) {
+			
+			Seller sellerDetails = sellerRepository.findByUser(userDetails);
+			
+			if(sellerDetails != null) {
+				
+				return new SellerDetailsDto(sellerDetails.getSellerId(), sellerDetails.getSellerName());
+			}
+			
+			
+		}
+		else {
+			throw new UserNotFoundException(AppConstant.UserIdNotFound);
+			
+			
+		}
+		return null;
+		
 	}
 	
 	
