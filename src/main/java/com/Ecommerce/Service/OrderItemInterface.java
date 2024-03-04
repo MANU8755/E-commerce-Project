@@ -9,9 +9,11 @@ public interface OrderItemInterface {
 	
 	
 
-	public String OrderProducts(Long productId,Long customerId,OrderItem orderItem);
+	public String OrderProducts(Long productId,Long customerId);
 	
 
 
 	List<OrderItem> getAllOrderItemBasedOnCustomerId(Long customerId);
+	
+	List<OrderItem> getAllOrdersForCustomers();
 } 

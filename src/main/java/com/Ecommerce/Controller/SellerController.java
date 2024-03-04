@@ -39,10 +39,16 @@ public class SellerController {
 		return new ResponseEntity<List<Seller>>(sellerServiceImplementation.getAllseller(), HttpStatus.OK);
 	}
 	
-	@PutMapping("/seller/{customerId}")
-	public ResponseEntity<MessageInfo> updateProductsByTheSeller(@PathVariable Long customerId,@RequestBody ProductName product){
+//	@PutMapping("/seller/{customerId}")
+//	public ResponseEntity<MessageInfo> updateProductsByTheSeller(@PathVariable Long customerId,@RequestBody ProductName product){
+//		
+//		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.updateProductAddedBySeller(product, customerId),HttpStatus.OK);
+//	}
+
+    @PutMapping("/seller/{sellerId}/{productId}")
+	public ResponseEntity<MessageInfo> updateProductsByTheSeller(@RequestBody ProductName product,@PathVariable Long sellerId,@PathVariable Long productId){
 		
-		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.updateProductAddedBySeller(product, customerId),HttpStatus.OK);
+		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.updateProductAddedBySeller(product,sellerId,productId),HttpStatus.OK);
 	}
 		
 	@DeleteMapping("/seller/{productId}/{customerId}")

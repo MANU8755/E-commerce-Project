@@ -43,7 +43,7 @@ public class OrderItemImplementation implements OrderItemInterface{
 
 
 	@Override
-		public String OrderProducts(Long productId, Long customerId, OrderItem orderItem) {
+		public String OrderProducts(Long productId, Long customerId) {
 		
 		if(userRespository.existsById(customerId)) {
 
@@ -71,8 +71,8 @@ public class OrderItemImplementation implements OrderItemInterface{
 							orderItemDetails.setCreatedAt(LocalDate.now());
 							orderItemDetails.setProduct(product);
 							//orderItemDetails.setProductUnitPrice(product.getProductCost());
-							orderItemDetails.setProductquantity(orderItem.getProductquantity());
-							double totalPrice = orderItemDetails.setTotalPurchasePrice(product.getProductCost() * orderItem.getProductquantity());
+							//orderItemDetails.setProductquantity(orderItem.getProductquantity());
+							double totalPrice = orderItemDetails.setTotalPurchasePrice(product.getProductCost());
 							
 							orderItemRespository.save(orderItemDetails);
 							
@@ -154,6 +154,14 @@ public class OrderItemImplementation implements OrderItemInterface{
 			throw new UserNotFoundException(AppConstant.userLoginWrongCredentialsInfo);
 		}
 		
+	}
+
+
+
+	@Override
+	public List<OrderItem> getAllOrdersForCustomers() {
+		// TODO Auto-generated method stub
+		return orderItemRespository.findAll() ;
 	}
 	
 	

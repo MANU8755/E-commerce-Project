@@ -14,7 +14,8 @@ public interface SellerServiceInterface {
 	
 	public List<Seller> getAllseller();
 	
-	public MessageInfo updateProductAddedBySeller(ProductName productName,Long customerId);
+
+    public MessageInfo updateProductAddedBySeller(ProductName product,Long sellerId,Long productId);
 	
 	public MessageInfo deleteProductAddedBySeller(Long productId,Long customerId);
 	

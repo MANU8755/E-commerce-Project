@@ -21,6 +21,7 @@ import com.Ecommerce.Entity.ProductName;
 import com.Ecommerce.Entity.Seller;
 import com.Ecommerce.Entity.User;
 import com.Ecommerce.ExceptionHandling.ProductNotFoundException;
+import com.Ecommerce.ExceptionHandling.SellerNotFoundException;
 import com.Ecommerce.ExceptionHandling.UserNotFoundException;
 import com.Ecommerce.Util.AppConstant;
 
@@ -84,46 +85,102 @@ public class SellerServiceImplementation implements SellerServiceInterface{
 		return sellerRepository.findAll();
 	}
 
-	@Override
-	public MessageInfo updateProductAddedBySeller(ProductName product, Long customerId) {
-		
-		if(productRepository.existsById(product.getProductId())) {
-			
-			ProductName productName = productRepository.findByProductId(product.getProductId());
-			
-			if(userRespository.existsById(customerId)) {
-				
-				User userDetails = userRespository.findByCustomerId(customerId);
-				
-				if(userDetails.isSeller()) {
+//	@Override
+//	public MessageInfo updateProductAddedBySeller(ProductName product, Long customerId) {
+//		
+//		if(productRepository.existsById(product.getProductId())) {
+//			
+//			ProductName productName = productRepository.findByProductId(product.getProductId());
+//			
+//			if(userRespository.existsById(customerId)) {
+//				
+//				User userDetails = userRespository.findByCustomerId(customerId);
+//				
+//				if(userDetails.isSeller()) {
+//
+//					productName.setProductName(product.getProductName());
+//					productName.setProductImage1(product.getProductImage1());
+//					productName.setProductCost(product.getProductCost());
+//					productName.setUpdatedAt(LocalDate.now());
+//					productName.setDescription(product.getDescription());
+//					
+//					productRepository.save(productName);
+//					
+//					return new MessageInfo("Successfully updated the product");
+//					
+//				}
+//				
+//				
+//			}
+//			else {
+//				
+//				throw new UserNotFoundException(AppConstant.UserIdNotFound);
+//			}
+//			
+//		}
+//		else {
+//			throw new ProductNotFoundException(AppConstant.productIdNotFound);
+//		}
+//		
+//		
+//		return null;
+//	}
+	
+	
+	public MessageInfo updateProductAddedBySeller(ProductName product,Long sellerId,Long productId) {
+		if (sellerRepository.existsById(sellerId)) {
 
-					productName.setProductName(product.getProductName());
-					productName.setProductImage1(product.getProductImage1());
-					productName.setProductCost(product.getProductCost());
-					productName.setUpdatedAt(LocalDate.now());
-					productName.setDescription(product.getDescription());
-					
-					productRepository.save(productName);
-					
-					return new MessageInfo("Successfully updated the product");
-					
+
+			if (productRepository.existsById(productId)) {
+
+				ProductName updatedProduct = productRepository.findByProductId(productId);
+
+
+
+
+//		if (productRepository.existsById(productId)) {
+//
+//			ProductName updatedProduct = productRepository.findByProductId(productId);
+				if(product.getProductName()!=null)
+				{
+					updatedProduct.setProductName(product.getProductName());
 				}
-				
-				
+				if(product.getProductImage1()!=null)
+				{
+					updatedProduct.setProductImage1(product.getProductImage1());
+				}
+				if(product.getProductCost()!=null)
+				{
+					updatedProduct.setProductCost(product.getProductCost());
+				}
+				if(product.getDescription()!=null)
+				{
+					updatedProduct.setDescription(product.getDescription());
+				}
+				updatedProduct.setUpdatedAt(LocalDate.now());
+
+
+				productRepository.save(updatedProduct);
+
+				return new MessageInfo("Successfully updated the product");
+
 			}
+//		else {
+//			throw new ProductNotFoundException(AppConstant.productIdNotFound);
+//		}
+//	}
 			else {
-				
-				throw new UserNotFoundException(AppConstant.UserIdNotFound);
+				throw new ProductNotFoundException(AppConstant.productIdNotFound);
+
 			}
-			
 		}
 		else {
-			throw new ProductNotFoundException(AppConstant.productIdNotFound);
+			throw new SellerNotFoundException(AppConstant.SellerNotFound);
 		}
-		
-		
-		return null;
+
 	}
+
+
 
 	
 	@Override

@@ -19,9 +19,9 @@ public class UserController {
 	@Autowired
 	UserServiceImplementation serviceImplementation;
 	
-	@GetMapping("/getAllUsers")
+	@GetMapping("/admin_only/getAllUser")
 	public ResponseEntity<List<User>> usersList(){
-		return new ResponseEntity<List<User>>(serviceImplementation.getAllUsers(),HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<User>>(serviceImplementation.getAllUsers(),HttpStatus.OK);
 	}
 	
     @GetMapping("/demo")

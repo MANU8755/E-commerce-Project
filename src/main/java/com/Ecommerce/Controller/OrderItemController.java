@@ -24,9 +24,9 @@ public class OrderItemController {
 	
 	
 	@PostMapping("/order/{customerId}/{productId}")
-	public ResponseEntity<String> orderProducts(@PathVariable Long customerId,@PathVariable Long productId,@RequestBody OrderItem orderItem){
+	public ResponseEntity<String> orderProducts(@PathVariable Long customerId,@PathVariable Long productId){
 		
-		return new ResponseEntity<String>(orderItemImplementation.OrderProducts(productId,customerId, orderItem), HttpStatus.OK);
+		return new ResponseEntity<String>(orderItemImplementation.OrderProducts(productId,customerId), HttpStatus.OK);
 	}
  	
 	
@@ -37,5 +37,10 @@ public class OrderItemController {
 		return new ResponseEntity<List<OrderItem>>(orderItemImplementation.getAllOrderItemBasedOnCustomerId(customerId), HttpStatus.OK);
 	}
 	
+	@GetMapping("/getAllOrder")
+	public ResponseEntity<List<OrderItem>> getAllOrderItemBasedOnCustomerId(){
+		
+		return new ResponseEntity<List<OrderItem>>(orderItemImplementation.getAllOrdersForCustomers(), HttpStatus.OK);
+	}
 
 }

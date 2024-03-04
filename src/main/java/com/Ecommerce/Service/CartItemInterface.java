@@ -9,7 +9,7 @@ import com.Ecommerce.Entity.CartItem;
 
 public interface CartItemInterface {
 
-      public MessageInfo addProductsToCart(Long productId,Long customerId,CartItem cartItem);
+      public MessageInfo addProductsToCart(Long productId,Long customerId);
       
 	
       public MessageInfo deleteItemsFromCart(Long productId,Long cartId);

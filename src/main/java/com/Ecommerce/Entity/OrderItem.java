@@ -2,6 +2,7 @@ package com.Ecommerce.Entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +22,7 @@ public class OrderItem {
     private Long orderItemId;
 
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Orders order;
@@ -29,7 +31,7 @@ public class OrderItem {
     @JoinColumn(name = "OrderProductId")
     private ProductName product;
 
-    private int productquantity;
+    //private int productquantity;
     
     
     private double totalPurchasePrice;
@@ -138,16 +140,16 @@ public class OrderItem {
 
 
 
-	public int getProductquantity() {
-		return productquantity;
-	}
-
-
-
-
-	public int setProductquantity(int productquantity) {
-		return this.productquantity = productquantity;
-	}
+//	public int getProductquantity() {
+//		return productquantity;
+//	}
+//
+//
+//
+//
+//	public int setProductquantity(int productquantity) {
+//		return this.productquantity = productquantity;
+//	}
 
 
 

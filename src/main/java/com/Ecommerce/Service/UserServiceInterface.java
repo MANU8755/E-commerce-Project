@@ -1,5 +1,6 @@
 package com.Ecommerce.Service;
 
+import com.Ecommerce.DTO.UserDetailsMessageInfo;
 import com.Ecommerce.Entity.User;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public interface UserServiceInterface {
 //     */
     List<User> getAllUsers();
 
+    List<UserDetailsMessageInfo> getAllUsersForAdmin();
     /**
      * Get user details by user ID.
      *

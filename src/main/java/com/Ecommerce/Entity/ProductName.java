@@ -27,6 +27,7 @@ public class ProductName {
 	
 	private Double productCost;
 	
+	@Column(length = 1000) 
 	private String description;
 	
 	private String productQuantity;

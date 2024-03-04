@@ -25,8 +25,8 @@ public class CartItemController {
 	CartItemImplementation cartItemImplementation;
 	
 	@PostMapping("/cart/{productId}/{customerId}")
-	public ResponseEntity<MessageInfo> addProductToCart(@PathVariable Long productId,@PathVariable Long customerId,@RequestBody CartItem cartItem){
-		return new ResponseEntity<MessageInfo>(cartItemImplementation.addProductsToCart(productId, customerId, cartItem), HttpStatus.OK);
+	public ResponseEntity<MessageInfo> addProductToCart(@PathVariable Long productId,@PathVariable Long customerId){
+		return new ResponseEntity<MessageInfo>(cartItemImplementation.addProductsToCart(productId, customerId), HttpStatus.OK);
 		
 	}
 	

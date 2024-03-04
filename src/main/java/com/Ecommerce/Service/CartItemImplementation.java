@@ -44,7 +44,7 @@ public class CartItemImplementation implements CartItemInterface{
 	
 	
 	@Override
-	public MessageInfo addProductsToCart(Long ProductId,Long customerId,CartItem cartItem) {
+	public MessageInfo addProductsToCart(Long ProductId,Long customerId) {
 		
 		
 		if(userRespository.existsById(customerId)) {
@@ -67,10 +67,10 @@ public class CartItemImplementation implements CartItemInterface{
 						
 						cartItemdetails.setProduct(product);
 						//cartItemdetails.setUser(userDetails);
-						cartItemdetails.setProductQuantity(cartItem.getProductQuantity());
+						//cartItemdetails.setProductQuantity(cartItem.getProductQuantity());
 						cartItemdetails.setCart(cartDetails);
 						//System.out.println(product.getProductCost());
-						cartItemdetails.setTotalPurchasePrice((cartItem.getProductQuantity()) * (product.getProductCost()));
+						cartItemdetails.setTotalPurchasePrice((product.getProductCost()));
 						cartItemdetails.setCreatedAt(LocalDate.now());
 						
 						cartItemRespository.save(cartItemdetails);
