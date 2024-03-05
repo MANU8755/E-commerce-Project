@@ -11,6 +11,7 @@ import com.Ecommerce.DAO.OrderItemRespository;
 import com.Ecommerce.DAO.OrderRepository;
 import com.Ecommerce.DAO.ProductRepository;
 import com.Ecommerce.DAO.UserRespository;
+import com.Ecommerce.DTO.MessageInfo;
 import com.Ecommerce.Entity.Cart;
 import com.Ecommerce.Entity.CartItem;
 import com.Ecommerce.Entity.OrderItem;
@@ -43,7 +44,7 @@ public class OrderItemImplementation implements OrderItemInterface{
 
 
 	@Override
-		public String OrderProducts(Long productId, Long customerId) {
+		public MessageInfo OrderProducts(Long productId, Long customerId) {
 		
 		if(userRespository.existsById(customerId)) {
 
@@ -77,7 +78,7 @@ public class OrderItemImplementation implements OrderItemInterface{
 							orderItemRespository.save(orderItemDetails);
 							
 							
-							return "Your order was placed successfully, and your total price is $" + totalPrice;
+							return  new MessageInfo(AppConstant.YourOrderedHasSuccessfullyplaced);
 						
 					}
 					else {

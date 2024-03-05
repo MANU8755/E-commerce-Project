@@ -19,7 +19,7 @@ public class CartItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cartItemId;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "CartProduct_id")
     private ProductName product;

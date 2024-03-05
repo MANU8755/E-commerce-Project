@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecommerce.DTO.MessageInfo;
 import com.Ecommerce.Entity.OrderItem;
 import com.Ecommerce.Service.OrderItemImplementation;
 
@@ -24,9 +25,9 @@ public class OrderItemController {
 	
 	
 	@PostMapping("/order/{customerId}/{productId}")
-	public ResponseEntity<String> orderProducts(@PathVariable Long customerId,@PathVariable Long productId){
+	public ResponseEntity<MessageInfo> orderProducts(@PathVariable Long customerId,@PathVariable Long productId){
 		
-		return new ResponseEntity<String>(orderItemImplementation.OrderProducts(productId,customerId), HttpStatus.OK);
+		return new ResponseEntity<MessageInfo>(orderItemImplementation.OrderProducts(productId,customerId), HttpStatus.OK);
 	}
  	
 	
@@ -37,7 +38,7 @@ public class OrderItemController {
 		return new ResponseEntity<List<OrderItem>>(orderItemImplementation.getAllOrderItemBasedOnCustomerId(customerId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/getAllOrder")
+	@GetMapping("/admin_only/getAllOrder")
 	public ResponseEntity<List<OrderItem>> getAllOrderItemBasedOnCustomerId(){
 		
 		return new ResponseEntity<List<OrderItem>>(orderItemImplementation.getAllOrdersForCustomers(), HttpStatus.OK);

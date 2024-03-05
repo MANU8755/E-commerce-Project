@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.Ecommerce.DAO.UserRespository;
 import com.Ecommerce.DTO.LoginDetails;
 import com.Ecommerce.DTO.MessageInfo;
+import com.Ecommerce.Entity.Role;
 import com.Ecommerce.Entity.User;
 import com.Ecommerce.ExceptionHandling.UserAlreadyExistedException;
 import com.Ecommerce.ExceptionHandling.UserNotFoundException;
@@ -117,6 +118,15 @@ public class AuthenticationService {
                         loginDetails.setToken(jwt);
                              
                         loginDetails.setMessageInfo(AppConstant.userLoginInfo);
+                        
+                        Enum<Role> role = user.getRole();
+                        
+                        if(role == Role.ADMIN) {
+                        	loginDetails.setAdminOrNot(true);
+                        }
+                        else {
+                        	loginDetails.setAdminOrNot(false);
+                        }
                         
                         return loginDetails;
                        

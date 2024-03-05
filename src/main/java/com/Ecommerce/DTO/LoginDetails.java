@@ -15,18 +15,24 @@ public class LoginDetails {
 	public String customerName;
 	
 	public String MessageInfo;
+	
+	public boolean isAdminOrNot;
 
-	public LoginDetails(String token, Long customerId, boolean isSellerOrNot, String customerName) {
+	
+	public LoginDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public LoginDetails(String token, Long customerId, boolean isSellerOrNot, String customerName, String messageInfo,
+			boolean isAdminOrNot) {
 		super();
 		this.token = token;
 		this.customerId = customerId;
 		this.isSellerOrNot = isSellerOrNot;
 		this.customerName = customerName;
-	}
-
-	public LoginDetails() {
-		super();
-		// TODO Auto-generated constructor stub
+		MessageInfo = messageInfo;
+		this.isAdminOrNot = isAdminOrNot;
 	}
 
 	public String getToken() {
@@ -59,13 +65,18 @@ public class LoginDetails {
 		this.customerName = customerName;
 	}
 
+	
 
 	public void setMessageInfo(String messageInfo) {
 		MessageInfo = messageInfo;
 	}
-	
-	
-	
+
+
+	public void setAdminOrNot(boolean isAdminOrNot) {
+		this.isAdminOrNot = isAdminOrNot;
+	}
+
 	
 
+	
 }

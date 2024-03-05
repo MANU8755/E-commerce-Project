@@ -54,7 +54,8 @@ public interface AppConstant {
 	public static final String ProductAddedtoCartInfo = "Product added successfully to the User Cart";
 	
 	
-	
+
+	public static final String YourOrderedHasSuccessfullyplaced = "Product added successfully Ordered";
 	
 
      	

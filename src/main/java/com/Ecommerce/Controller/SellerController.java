@@ -30,11 +30,10 @@ public class SellerController {
 	
 	@PostMapping("/sellerRegister/{customerId}")
 	public ResponseEntity<MessageInfo> RegisterSellerDetails(@PathVariable Long customerId,@RequestBody Seller sellerRequest){
-		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.sellerRegistration(customerId,sellerRequest),HttpStatus.OK);
-		
+		return new ResponseEntity<MessageInfo>(sellerServiceImplementation.sellerRegistration(customerId,sellerRequest),HttpStatus.OK);	
 	}
 	
-	@GetMapping("/getsellerdetails")
+	@GetMapping("/admin_only/getsellerdetails")
 	public ResponseEntity<List<Seller>> getAllUsers(){
 		return new ResponseEntity<List<Seller>>(sellerServiceImplementation.getAllseller(), HttpStatus.OK);
 	}

@@ -24,7 +24,7 @@ public class ProductController {
 	@Autowired
 	ProductServiceImplementation productServiceImplementation;
 	
-	@PostMapping("/product/{categoryId}/{sellerId}")
+	@PostMapping("/addproduct/{categoryId}/{sellerId}")
 	public ResponseEntity<MessageInfo> addProducts(@PathVariable Long categoryId,@PathVariable Long sellerId,@RequestBody ProductName productName){
 		
 		return new ResponseEntity<MessageInfo>(productServiceImplementation.addProducts(categoryId,sellerId,productName), HttpStatus.OK);
